@@ -1,18 +1,38 @@
+import java.time.Duration;
+import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class Quicksort {
     public static void main(String[] args){
-        int[] arr = new int[10];
-        for(int i = 0; i < arr.length; i++){
-            arr[i] = (int)(Math.random()*100);
-        }
-
-        System.out.println(Arrays.toString(arr));
+        Scanner input = new Scanner(System.in);
+        int[] arr = readArray(input);
         qSort(arr);
         assert isSorted(arr);
-        System.out.println(Arrays.toString(arr));
     }
-
+    /**
+     * From 1b): Puts the Input-Lines into an Integer-Array
+     * @param in A scanner with the input to read
+     * @return The array, filled with all numbers in the Input-Stream
+     */
+    private static int[] readArray(Scanner in){
+        ArrayList<Integer> list = new ArrayList<>();
+        while(in.hasNextLine()){
+            try {
+                int current = Integer.parseInt(in.nextLine());
+                list.add(current);
+            }catch(Exception e){
+                System.err.println("Input read was NaN");
+            }
+        }
+        //Händisch: ArrayList<Integer> -> int[]
+        int[] arr = new int[list.size()];
+        for(int i = 0; i < arr.length; i++){
+            arr[i] = list.get(i);
+        }
+        return arr;
+    }
     public static int partition(int[] data, int l, int r){
         if(l >= r){
             return -1;
@@ -49,7 +69,12 @@ public class Quicksort {
         return data;
     }
     public static int[] qSort(int[] data){
-        return qSort(data, 0, data.length - 1);
+        Instant start = Instant.now();
+        int[] out = qSort(data, 0, data.length - 1);
+        Instant finish = Instant.now();
+        long time = Duration.between(start, finish).toNanos();
+        System.out.println("Time: " + time);
+        return out;
     }
     public static boolean isSorted(int[] data){
         int prev = data[0];
