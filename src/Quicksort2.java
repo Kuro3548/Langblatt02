@@ -10,6 +10,20 @@ public class Quicksort2 {
         int[] arr = readArray(input);
         qSort(arr);
     }
+
+    /**
+     * [For test purposes]: Generates an array with values between 0 and 100
+     * @param size The size of the generated array
+     * @return A randomly generated array
+     */
+    public static int[] randomArray(int size){
+        int[] out = new int[size];
+        for(int i = 0; i < size; i++){
+            out[i] = (int)(Math.random() * 100);
+        }
+        return out;
+    }
+
     /**
      * From 1b): Puts the Input-Lines into an Integer-Array
      * @param in A scanner with the input to read
